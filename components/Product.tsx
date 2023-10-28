@@ -32,16 +32,17 @@ const Product: React.FC<ProductProps> = ({ id }) => {
   }
 
   return (
-    <div className="flex flex-col items-center">
-      <img src="https://source.unsplash.com/random" alt={product.title} className="w-full h-64 object-cover" />
+    <div className="flex flex-col items-center bg-white shadow-md rounded-lg p-6">
+      <img src="https://source.unsplash.com/random" alt={product.title} className="w-full h-64 object-cover rounded-lg" />
       <h2 className="text-2xl font-bold mt-4">{product.title}</h2>
       <p className="text-gray-600">{product.details}</p>
       <p className="text-lg font-bold mt-2">${product.price}</p>
       <div className="flex mt-4">
         {product.sizes.map((size, index) => (
-          <span key={index} className="border border-gray-300 px-4 py-2 m-2">{size}</span>
+          <span key={index} className="border border-gray-300 px-4 py-2 m-2 rounded-full">{size}</span>
         ))}
       </div>
+      <button className="bg-blue-500 text-white px-6 py-2 rounded-full mt-4 hover:bg-blue-600 transition-colors duration-200">Buy Now</button>
       <div className="w-full mt-6">
         <h3 className="text-xl font-bold">Reviews</h3>
         {product.reviews.map((review, index) => (
