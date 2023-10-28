@@ -3,7 +3,7 @@ import CheckoutForm from './CheckoutForm';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 
-const stripePromise = loadStripe('your-stripe-public-key');
+const stripePromise = loadStripe('pk_live_51O6M5FBdBgk0FUCbAhAhMp25eZ7Gwmr36QeAJG8nwOtyWassJx7ajcYjqe3BOovnCcoHqYkIokkQaIbrukQJDgzy00gv1koFhr');
 
 type Review = {
   name: string;
