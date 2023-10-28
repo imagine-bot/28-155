@@ -1,4 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import CheckoutForm from './CheckoutForm';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+
+const stripePromise = loadStripe('your-stripe-public-key');
 
 type Review = {
   name: string;
@@ -20,6 +25,7 @@ type ProductData = {
 
 const Product: React.FC<ProductProps> = ({ id }) => {
   const [product, setProduct] = useState<ProductData | null>(null);
+  const [showCheckout, setShowCheckout] = useState(false);
 
   useEffect(() => {
     fetch(`/api/product?id=${id}`)
@@ -42,7 +48,12 @@ const Product: React.FC<ProductProps> = ({ id }) => {
           <span key={index} className="border border-gray-300 px-4 py-2 m-2 rounded-full">{size}</span>
         ))}
       </div>
-      <button className="bg-blue-500 text-white px-6 py-2 rounded-full mt-4 hover:bg-blue-600 transition-colors duration-200">Buy Now</button>
+      <button onClick={() => setShowCheckout(true)} className="bg-blue-500 text-white px-6 py-2 rounded-full mt-4 hover:bg-blue-600 transition-colors duration-200">Buy Now</button>
+      {showCheckout && (
+        <Elements stripe={stripePromise}>
+          <CheckoutForm />
+        </Elements>
+      )}
       <div className="w-full mt-6">
         <h3 className="text-xl font-bold">Reviews</h3>
         {product.reviews.map((review, index) => (
