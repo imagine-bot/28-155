@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import CheckoutForm from './CheckoutForm';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
+import { Dialog, Transition } from '@headlessui/react';
+import { Fragment } from 'react';
 
 const stripePromise = loadStripe('pk_live_51O6M5FBdBgk0FUCbAhAhMp25eZ7Gwmr36QeAJG8nwOtyWassJx7ajcYjqe3BOovnCcoHqYkIokkQaIbrukQJDgzy00gv1koFhr');
 
@@ -49,11 +51,36 @@ const Product: React.FC<ProductProps> = ({ id }) => {
         ))}
       </div>
       <button onClick={() => setShowCheckout(true)} className="bg-blue-500 text-white px-6 py-2 rounded-full mt-4 hover:bg-blue-600 transition-colors duration-200">Buy Now</button>
-      {showCheckout && (
-        <Elements stripe={stripePromise}>
-          <CheckoutForm />
-        </Elements>
-      )}
+      <Transition appear show={showCheckout} as={Fragment}>
+        <Dialog
+          as="div"
+          className="fixed inset-0 z-10 overflow-y-auto"
+          onClose={() => setShowCheckout(false)}
+        >
+          <div className="min-h-screen px-4 text-center">
+            <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
+            <span
+              className="inline-block h-screen align-middle"
+              aria-hidden="true"
+            >
+              &#8203;
+            </span>
+            <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+              <Dialog.Title
+                as="h3"
+                className="text-lg font-medium leading-6 text-gray-900"
+              >
+                Payment
+              </Dialog.Title>
+              <div className="mt-2">
+                <Elements stripe={stripePromise}>
+                  <CheckoutForm />
+                </Elements>
+              </div>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
       <div className="w-full mt-6">
         <h3 className="text-xl font-bold">Reviews</h3>
         {product.reviews.map((review, index) => (
