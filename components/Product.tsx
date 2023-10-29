@@ -5,7 +5,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 
-const stripePromise = loadStripe('pk_live_51O6M5FBdBgk0FUCbAhAhMp25eZ7Gwmr36QeAJG8nwOtyWassJx7ajcYjqe3BOovnCcoHqYkIokkQaIbrukQJDgzy00gv1koFhr');
+const stripePromise = loadStripe('pk_test_51O6M5FBdBgk0FUCb5WaO5SroNjWezYz3Ozvy2Ib950Jf9n5vS1OfadgIHa5OE1GjxWqNsbSsdrsXIalgMNbpBj0T007zqpxvWl');
 
 type Review = {
   name: string;
