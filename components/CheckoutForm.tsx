@@ -27,6 +27,17 @@ const CheckoutForm = () => {
       console.log('[error]', error);
     } else {
       console.log('[PaymentMethod]', paymentMethod);
+      if (paymentMethod) {
+        const response = await fetch('/api/charge', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ paymentMethodId: paymentMethod.id }),
+        });
+        const data = await response.json();
+        console.log(data);
+      }
     }
   };
 
